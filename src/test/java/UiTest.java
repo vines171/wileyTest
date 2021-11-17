@@ -10,21 +10,19 @@ import ui.SearchResultPage;
 
 import java.util.concurrent.TimeUnit;
 
-public class TestUi {
-    private WebDriver driver;
-    private MainPage mainPage;
+public class UiTest {
+    private  WebDriver driver;
+    private  MainPage mainPage;
 
     @Before
     public void setUp() {
 
         System.setProperty(ConfigReader.getParam("driver"), ConfigReader.getParam("chromeDriver"));
-//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Ira\\drivers\\chromedriver.exe");
 
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-//        driver.get(getProperty("mainPageUrl"));
-        driver.get("https://www.wiley.com/en-us");
+        driver.get(ConfigReader.getParam("mainPageUrl"));
         mainPage = new MainPage(driver);
     }
 
@@ -37,15 +35,6 @@ public class TestUi {
     @Test
     @DisplayName("search Java ")
     public void loginTest() {
-
-//        System.setProperty(ConfigReader.getParam("driver"), ConfigReader.getParam("chromeDriver"));
-//
-//        driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//        driver.manage().window().maximize();
-//        driver.get(ConfigReader.getParam("mainPageUrl"));
-//        mainPage = new MainPage(driver);
-
 
         SearchResultPage searchResultPage = mainPage
                 .search("WHO WE SERVE",

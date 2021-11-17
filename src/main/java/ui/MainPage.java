@@ -28,7 +28,7 @@ public class MainPage {
     private WebElement namePageTitle;
 
     @FindBy(xpath = "//div[contains(@class, 'main-navigation-search')]//input/..//button")
-    WebElement searchButton;
+    private WebElement searchButton;
 
     @FindBy(xpath = "(//section[@class='searchresults-section search-related-content suggestions'])[1]//span")
     private List<WebElement> searchResults;

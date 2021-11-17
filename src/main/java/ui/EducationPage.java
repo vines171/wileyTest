@@ -17,6 +17,9 @@ public class EducationPage {
         PageFactory.initElements(driver, this);
         this.driver = driver; }
 
+    public EducationPage() {
+    }
+
     @FindBy(xpath = "//div[@class='hero-banner']//span[contains(text(), 'Education')]")
     private WebElement titlePage;
 
@@ -44,10 +47,6 @@ public class EducationPage {
     public EducationPage checkSubjectsNumber(int number){
         assertEquals(subjectsList.size(), number);
         return this;
-    }
-
-
-    public EducationPage() {
     }
 
     public void page(String pageName,  int number, String headerName,

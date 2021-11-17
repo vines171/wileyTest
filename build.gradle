@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id "io.qameta.allure" version "2.9.6"
+//    id "io.qameta.allure" version "2.9.6"
 }
 
 group 'org.example'
@@ -12,6 +12,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompileOnly 'junit:junit:4.12'
@@ -21,7 +22,7 @@ dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.4.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-jcl
     implementation 'org.apache.logging.log4j:log4j-jcl:2.13.3'
@@ -34,20 +35,23 @@ dependencies {
 // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j
     implementation 'org.apache.logging.log4j:log4j:2.8.2'
 
+    testCompile 'org.junit.jupiter:junit-jupiter:5.6.2'
+
 //    implementation "io.qameta.allure:allure-java-commons:2.13.1"
 //    implementation "io.qameta.allure:allure-rest-assured:2.13.1"
 }
 
 
-
-dependencies {
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
-}
+//
+//dependencies {
+//    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+//    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
+//}
 
 test {
     useJUnitPlatform()
 }
+
 
 dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter:5.5.1')
@@ -65,8 +69,11 @@ test {
         events "passed", "skipped", "failed"
     }
 }
-
-apply plugin: "io.qameta.allure"
-
+//
+////apply plugin: "io.qameta.allure"
+//dependencies {
+//    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+//    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
+//}
 
 
