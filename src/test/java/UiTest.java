@@ -36,43 +36,48 @@ public class UiTest {
   public void loginTest() {
 
     SearchResultPage searchResultPage =
-        mainPage.search(
-            "WHO WE SERVE",
-            12,
-            "Students",
-            "Instructors",
-            "Book Authors",
-            "Professionals",
-            "Researchers",
-            "Institutions",
-            "Librarians",
-            "Corporations",
-            "Societies",
-            "Journal Editors",
-            "Government",
-            "Bookstores",
-            "java",
-            "java");
+    mainPage.checkPageTitleText("WHO WE SERVE")
+            .checkBlockNumber(12)
+            .checkBlockName("Students")
+            .checkBlockName("Instructors")
+            .checkBlockName("Book Authors")
+            .checkBlockName("Professionals")
+            .checkBlockName("Researchers")
+            .checkBlockName("Institutions")
+            .checkBlockName("Librarians")
+            .checkBlockName("Corporations")
+            .checkBlockName("Societies")
+            .checkBlockName("Journal Editors")
+            .checkBlockName("Government")
+            .checkBlockName("Bookstores")
+            .inputSearch("java")
+            .checkSearchResults("java")
+            .clickSearch();
 
     EducationPage educationPage =
-        searchResultPage.educationPage(10, "Java", "E-Book", "Print", "DVD");
+            searchResultPage.
+            checkProductListNumber(10)
+            .checkSearchResults("Java")
+            .productList("E-Book", "Print", "DVD")
+            .hoverElement()
+            .educationButtonClick();
 
-    educationPage.page(
-        "Education",
-        13,
-        "Subjects",
-        "Information & Library Science",
-        "Education & Public Policy",
-        "K-12 General",
-        "Higher Education General",
-        "Vocational Technology",
-        "Conflict Resolution & Mediation (School settings)",
-        "Curriculum Tools- General",
-        "Special Educational Needs",
-        "Theory of Education",
-        "Education Special Topics",
-        "Educational Research & Statistics",
-        "Literacy & Reading",
-        "Classroom Management");
+    educationPage.checkTitlePage("Education")
+            .checkHeaderPage("Subjects")
+            .checkSubjectsNumber(13)
+            .checkSubjectsName("Information & Library Science")
+            .checkSubjectsName("Education & Public Policy")
+            .checkSubjectsName("K-12 General")
+            .checkSubjectsName("Higher Education General")
+            .checkSubjectsName("Vocational Technology")
+            .checkSubjectsName("Conflict Resolution & Mediation (School settings)")
+            .checkSubjectsName("Curriculum Tools- General")
+            .checkSubjectsName("Special Educational Needs")
+            .checkSubjectsName("Theory of Education")
+            .checkSubjectsName("Education Special Topics")
+            .checkSubjectsName("Educational Research & Statistics")
+            .checkSubjectsName("Literacy & Reading")
+            .checkSubjectsName("Classroom Management");
+
   }
 }

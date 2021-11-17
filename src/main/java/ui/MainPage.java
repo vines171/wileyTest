@@ -11,7 +11,8 @@ import static com.thoughtworks.selenium.SeleneseTestBase.assertEquals;
 import static com.thoughtworks.selenium.SeleneseTestBase.assertTrue;
 
 public class MainPage {
-    private WebDriver driver;
+
+  private WebDriver driver;
 
   @FindBy(xpath = "//div[contains(@class, 'main-navigation-search')]//input/..//button")
   protected WebElement namePage;
@@ -44,7 +45,7 @@ public class MainPage {
     return this;
   }
 
-  public MainPage getPageTitleText(String pageName) {
+  public MainPage checkPageTitleText(String pageName) {
     assertEquals(namePageTitle.getText(), pageName);
     return this;
   }
@@ -64,51 +65,12 @@ public class MainPage {
     return this;
   }
 
-  public void countryFormClick() {
-    countryForm.click();
-  }
-
   public SearchResultPage clickSearch() {
     searchButton.click();
-    for (String windowHandle : driver.getWindowHandles()) driver.switchTo().window(windowHandle);
-    return new SearchResultPage(driver);
-  }
 
-  public SearchResultPage search(
-      String namePage,
-      int number,
-      String nameBlock,
-      String nameBlock2,
-      String nameBlock3,
-      String nameBlock4,
-      String nameBlock5,
-      String nameBlock6,
-      String nameBlock7,
-      String nameBlock8,
-      String nameBlock9,
-      String nameBlock10,
-      String nameBlock11,
-      String nameBlock12,
-      String typeSearch,
-      String nameElement) {
-    this.getPageTitleText(namePage);
-    this.checkBlockNumber(number);
-    this.checkBlockName(nameBlock);
-    this.checkBlockName(nameBlock2);
-    this.checkBlockName(nameBlock3);
-    this.checkBlockName(nameBlock4);
-    this.checkBlockName(nameBlock5);
-    this.checkBlockName(nameBlock6);
-    this.checkBlockName(nameBlock7);
-    this.checkBlockName(nameBlock8);
-    this.checkBlockName(nameBlock9);
-    this.checkBlockName(nameBlock10);
-    this.checkBlockName(nameBlock11);
-    this.checkBlockName(nameBlock12);
-    this.inputSearch(typeSearch);
-    this.checkSearchResults(nameElement);
-    this.clickSearch();
-    this.countryFormClick();
+    if (countryForm.isDisplayed()) countryForm.click();
+
+    for (String windowHandle : driver.getWindowHandles()) driver.switchTo().window(windowHandle);
     return new SearchResultPage(driver);
   }
 }

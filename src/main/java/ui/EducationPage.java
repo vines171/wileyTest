@@ -48,39 +48,4 @@ public class EducationPage {
     assertEquals(subjectsList.size(), number);
     return this;
   }
-
-  public void page(
-      String pageName,
-      int number,
-      String headerName,
-      String SubjectsName1,
-      String SubjectsName2,
-      String SubjectsName3,
-      String SubjectsName4,
-      String SubjectsName5,
-      String SubjectsName6,
-      String SubjectsName7,
-      String SubjectsName8,
-      String SubjectsName9,
-      String SubjectsName10,
-      String SubjectsName11,
-      String SubjectsName12,
-      String SubjectsName13) {
-    this.checkTitlePage(pageName);
-    this.checkHeaderPage(headerName);
-    this.checkSubjectsNumber(number);
-    this.checkSubjectsName(SubjectsName1);
-    this.checkSubjectsName(SubjectsName2);
-    this.checkSubjectsName(SubjectsName3);
-    this.checkSubjectsName(SubjectsName4);
-    this.checkSubjectsName(SubjectsName5);
-    this.checkSubjectsName(SubjectsName6);
-    this.checkSubjectsName(SubjectsName7);
-    this.checkSubjectsName(SubjectsName8);
-    this.checkSubjectsName(SubjectsName9);
-    this.checkSubjectsName(SubjectsName10);
-    this.checkSubjectsName(SubjectsName11);
-    this.checkSubjectsName(SubjectsName12);
-    this.checkSubjectsName(SubjectsName13);
-  }
 }
