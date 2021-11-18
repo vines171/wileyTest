@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-//    id "io.qameta.allure" version "2.9.6"
 }
 
 group 'org.example'
@@ -32,26 +31,16 @@ dependencies {
 
     implementation "com.typesafe:config:1.3.4"
 
-// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j
     implementation 'org.apache.logging.log4j:log4j:2.8.2'
 
     testCompile 'org.junit.jupiter:junit-jupiter:5.6.2'
 
-//    implementation "io.qameta.allure:allure-java-commons:2.13.1"
-//    implementation "io.qameta.allure:allure-rest-assured:2.13.1"
 }
-
-
-//
-//dependencies {
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
-//}
 
 test {
     useJUnitPlatform()
 }
-
 
 dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter:5.5.1')
@@ -69,11 +58,6 @@ test {
         events "passed", "skipped", "failed"
     }
 }
-//
-////apply plugin: "io.qameta.allure"
-//dependencies {
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
-//}
+
 
 

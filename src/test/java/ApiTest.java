@@ -89,7 +89,7 @@ public class ApiTest {
             .then()
             .assertThat()
             .statusCode(SC_OK)
-            .contentType(JSON)
+            .contentType("image/png")
             .extract()
             .body()
             .asInputStream();
