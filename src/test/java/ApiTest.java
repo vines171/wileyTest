@@ -19,7 +19,7 @@ public class ApiTest {
     JsonPath response =
         given()
             .when()
-            .get(EndpointEnum.searchApiUrl)
+            .get(ConfigReader.getParam("api.searchApiUrl"))
             .then()
             .assertThat()
             .statusCode(SC_OK)
@@ -34,12 +34,11 @@ public class ApiTest {
     checkValueType(titles, "Wiley", 4);
   }
 
-  private void checkValueType(List<String> actualValueType,  String extendValueType, int countVariable) {
+  private void checkValueType(List<String> actualValueType, String extendValueType, int countVariable) {
     assertTrue(
-            ((actualValueType.stream()
-                    .allMatch((s) -> s.contains(extendValueType))))
-                    && (actualValueType.size() == countVariable),
-            countVariable +  " sentences do not contain the type " + extendValueType);
+        (actualValueType.stream().allMatch((s) -> s.contains(extendValueType)))
+            && (actualValueType.size() == countVariable),
+        countVariable + " sentences do not contain the type " + extendValueType);
   }
 
   @Test
@@ -49,7 +48,7 @@ public class ApiTest {
         given()
             .when()
             .header("accept", "application/json")
-            .post(EndpointEnum.delayApiUrl)
+            .post(ConfigReader.getParam("api.delayApiUrl"))
             .then()
             .assertThat()
             .statusCode(SC_OK)
@@ -57,9 +56,7 @@ public class ApiTest {
             .extract()
             .response();
 
-    assertTrue(
-        (response.time() <= 10000),
-        ("Returns a deferred response exceeding 10 seconds"));
+    assertTrue((response.time() <= 10000), ("Returns a deferred response exceeding 10 seconds"));
   }
 
   @Test
@@ -68,7 +65,7 @@ public class ApiTest {
     given()
         .when()
         .header("accept", "application/json")
-        .post(EndpointEnum.delayApiUrl)
+        .post(ConfigReader.getParam("api.delayApiUrl"))
         .then()
         .time(lessThan(10000L))
         .assertThat()
@@ -85,7 +82,7 @@ public class ApiTest {
         given()
             .when()
             .header("accept", "image/png")
-            .get(EndpointEnum.ImageApiUrl)
+            .get(ConfigReader.getParam("api.ImageApiUrl"))
             .then()
             .assertThat()
             .statusCode(SC_OK)
@@ -94,7 +91,6 @@ public class ApiTest {
             .body()
             .asInputStream();
 
-    assertTrue(
-        (ImageDiffer.checkImage(response)), ("Image do not match"));
+    assertTrue((ImageDiffer.checkImage(response)), ("Image do not match"));
   }
 }

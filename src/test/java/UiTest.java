@@ -24,7 +24,7 @@ public class UiTest {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     driver.manage().window().maximize();
-    driver.get(EndpointEnum.mainWileyPageUrl);
+    driver.get(ConfigReader.getParam("ui.mainWileyPageUrl"));
     mainPage = new MainPage(driver);
   }
 
@@ -39,23 +39,22 @@ public class UiTest {
 
     MainPage mainPage = PageFactory.initElements(driver, MainPage.class);
 
-        mainPage
-            .checkPageTitleText("WHO WE SERVE")
-            .checkBlockNumber(12)
-            .checkBlockName("Students")
-            .checkBlockName("Instructors")
-            .checkBlockName("Book Authors")
-            .checkBlockName("Professionals")
-            .checkBlockName("Researchers")
-            .checkBlockName("Institutions")
-            .checkBlockName("Librarians")
-            .checkBlockName("Corporations")
-            .checkBlockName("Societies")
-            .checkBlockName("Journal Editors")
-            .checkBlockName("Government")
-            .checkBlockName("Bookstores");
-        }
-
+    mainPage
+        .checkPageTitleText("WHO WE SERVE")
+        .checkBlockNumber(12)
+        .checkBlockName("Students")
+        .checkBlockName("Instructors")
+        .checkBlockName("Book Authors")
+        .checkBlockName("Professionals")
+        .checkBlockName("Researchers")
+        .checkBlockName("Institutions")
+        .checkBlockName("Librarians")
+        .checkBlockName("Corporations")
+        .checkBlockName("Societies")
+        .checkBlockName("Journal Editors")
+        .checkBlockName("Government")
+        .checkBlockName("Bookstores");
+  }
 
   @Test
   @DisplayName("Check search java")
@@ -64,28 +63,24 @@ public class UiTest {
     SearchResultPage searchResultPage = PageFactory.initElements(driver, SearchResultPage.class);
     MainPage mainPage = PageFactory.initElements(driver, MainPage.class);
 
-              mainPage
-                  .inputSearch("java")
-                  .checkSearchResults("java")
-                  .clickSearch();
+    mainPage.inputSearch("java").checkSearchResults("java").clickSearch();
 
-      searchResultPage
-              .checkProductListNumber(10)
-              .checkSearchResults("Java")
-              .productList("E-Book", "Print", "DVD");
+    searchResultPage
+        .checkProductListNumber(10)
+        .checkSearchResults("Java")
+        .productList("E-Book", "Print", "DVD");
   }
 
-
-    @Test
-    @DisplayName("check education page")
-    public void educationPageTest() {
+  @Test
+  @DisplayName("check education page")
+  public void educationPageTest() {
 
     EducationPage educationPage = PageFactory.initElements(driver, EducationPage.class);
     TopPanel topPanel = PageFactory.initElements(driver, TopPanel.class);
 
-    topPanel.hoverElementAndClickElement("SUBJECTS", "Education" );
+    topPanel.hoverElementAndClickElement("SUBJECTS", "Education");
 
-        educationPage
+    educationPage
         .checkTitlePage("Education")
         .checkHeaderPage("Subjects")
         .checkSubjectsNumber(13)
