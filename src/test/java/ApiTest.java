@@ -7,88 +7,94 @@ import java.io.IOException;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
+import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ApiTest {
-    @Test
-    @DisplayName("Get запрос")
-    public void oneTest() {
-        JsonPath response =
-                given()
-                        .when()
-                        .get(ConfigReader.getParam("apiUrl"))
-                        .then()
-                        .log()
-                        .all()
-                        .assertThat()
-                        .statusCode(200)
-                        .extract()
-                        .jsonPath();
+  @Test
+  @DisplayName("Get запрос")
+  public void searchType() {
+    JsonPath response =
+        given()
+            .when()
+            .get(EndpointEnum.searchApiUrl)
+            .then()
+            .assertThat()
+            .statusCode(SC_OK)
+            .contentType(JSON)
+            .extract()
+            .jsonPath();
 
-        List<String> actualNameSuggestions = response.getJsonObject("suggestions.term");
-        List<String> actualNameTitle = response.getJsonObject("pages.title");
+    List<String> suggestions = response.getJsonObject("suggestions.term");
+    List<String> titles = response.getJsonObject("pages.title");
+
+    checkValueType(suggestions, "<span class=\"search-highlight\">java</span>", 4);
+    checkValueType(titles, "Wiley", 4);
+  }
+
+  private void checkValueType(List<String> actualValueType,  String extendValueType, int countVariable) {
+    assertTrue(
+            ((actualValueType.stream()
+                    .allMatch((s) -> s.contains(extendValueType))))
+                    && (actualValueType.size() == countVariable),
+            countVariable +  " sentences do not contain the type " + extendValueType);
+  }
+
+  @Test
+  @DisplayName("Post request delay 10 seconds. option 1")
+  public void postDelayTest() {
+    Response response =
+        given()
+            .when()
+            .header("accept", "application/json")
+            .post(EndpointEnum.delayApiUrl)
+            .then()
+            .assertThat()
+            .statusCode(SC_OK)
+            .contentType(JSON)
+            .extract()
+            .response();
 
     assertTrue(
-        ((actualNameSuggestions.stream()
-                .allMatch((s) -> s.contains("<span class=\"search-highlight\">java</span>"))))
-            && (actualNameSuggestions.size() == 4),
-        String.format("4 sentences do not start with a preformatted highlighted word java within the type <span class=\"search-highlight\">java</span>"));
+        (response.time() <= 10000),
+        ("Returns a deferred response exceeding 10 seconds"));
+  }
 
-        assertTrue(
-                ((actualNameTitle.stream().allMatch((s) -> s.contains("Wiley")))) && (actualNameTitle.size() == 4),
+  @Test
+  @DisplayName("Post request delay 10 seconds. option 2")
+  public void postDelayTest2() {
+    given()
+        .when()
+        .header("accept", "application/json")
+        .post(EndpointEnum.delayApiUrl)
+        .then()
+        .time(lessThan(10000L))
+        .assertThat()
+        .statusCode(SC_OK)
+        .contentType(JSON)
+        .extract()
+        .response();
+  }
 
-                String.format("4 sentences do not contain the attribute 'term' value includes word Wiley "));
-    }
-
-
-    @Test
-    @DisplayName("Post request delay 10 seconds. option 1")
-    public void postDelayTest() {
-        Response response =
-                given()
-                        .when()
-                        .header("accept", "application/json")
-                        .post(ConfigReader.getParam("apiDelayUrl"))
-                        .then()
-                        .assertThat()
-                        .statusCode(200)
-                        .extract()
-                        .response();
-
-        assertTrue((response.time() <= 10000), String.format("Returns a deferred response exceeding 10 seconds"));
-    }
-
-    @Test
-    @DisplayName("Post request delay 10 seconds. option 2")
-    public void postDelayTest2() {
+  @Test
+  @DisplayName("Get image format PNG")
+  public void getImageTest() throws IOException {
+    Object response =
         given()
-                .when()
-                .header("accept", "application/json")
-                .post(ConfigReader.getParam("apiDelayUrl"))
-                .then()
-                .time(lessThan(10000L))
-                .assertThat()
-                .statusCode(200)
-                .extract()
-                .response();
-    }
+            .when()
+            .header("accept", "image/png")
+            .get(EndpointEnum.ImageApiUrl)
+            .then()
+            .assertThat()
+            .statusCode(SC_OK)
+            .contentType(JSON)
+            .extract()
+            .body()
+            .asInputStream();
 
-    @Test
-    @DisplayName("Get image format PNG")
-    public void getImageTest() throws IOException {
-        Object response =
-                given()
-                        .when()
-                        .header("accept", "image/png")
-                        .get(ConfigReader.getParam("apiImageUrl"))
-                        .then()
-                        .assertThat()
-                        .statusCode(200)
-                        .extract()
-                        .body()
-                        .asInputStream();
-
-        assertTrue((ImageDiffer.checkImage("apiPathImage", response)), String.format("Image do not match"));
-    }
+    assertTrue(
+        (ImageDiffer.checkImage(response)), ("Image do not match"));
+  }
 }

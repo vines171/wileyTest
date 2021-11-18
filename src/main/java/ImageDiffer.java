@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageDiffer {
-  public static boolean checkImage(String pathImage, Object image) throws IOException {
-    BufferedImage extendImage = ImageIO.read(new File(ConfigReader.getParam(pathImage)));
+  public static boolean checkImage(Object image) throws IOException {
+    BufferedImage extendImage = ImageIO.read(new File(EndpointEnum.ImagePathApi));
     BufferedImage actualImage = ImageIO.read((InputStream) image);
 
     DataBuffer extendImageBuffer = extendImage.getRaster().getDataBuffer();

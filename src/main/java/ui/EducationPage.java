@@ -27,7 +27,6 @@ public class EducationPage {
     this.driver = driver;
   }
 
-  public EducationPage() {}
 
   public EducationPage checkTitlePage(String pageName) {
     assertEquals(titlePage.getText(), pageName);
@@ -48,4 +47,6 @@ public class EducationPage {
     assertEquals(subjectsList.size(), number);
     return this;
   }
+
+
 }
