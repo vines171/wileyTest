@@ -73,4 +73,5 @@ public class MainPage {
     for (String windowHandle : driver.getWindowHandles()) driver.switchTo().window(windowHandle);
     return new SearchResultPage(driver);
   }
+
 }
